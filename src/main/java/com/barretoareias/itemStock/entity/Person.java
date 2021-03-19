@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -18,4 +19,7 @@ public class Person {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "item")
+    private List<Item> items;
 }

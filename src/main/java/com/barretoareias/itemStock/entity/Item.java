@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -31,12 +32,12 @@ public class Item {
     private int quantity;
 
     @Column(nullable = false)
-    private Date addedDate;
+    private LocalDate addedDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Packing type;
-
-    @Column(nullable = true)
+    
+    @OneToOne(mappedBy = "person")
     private Long personId;
 }

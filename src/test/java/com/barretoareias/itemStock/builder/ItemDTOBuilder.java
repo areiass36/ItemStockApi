@@ -4,7 +4,8 @@ import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.enums.Packing;
 import lombok.Builder;
 
-import java.sql.Date;
+import java.util.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 @Builder
@@ -26,7 +27,7 @@ public class ItemDTOBuilder {
     private int quantity = 8;
 
     @Builder.Default
-    private Date addedDate = Date.valueOf("2021-01-01");
+    private LocalDate addedDate = LocalDate.now();
 
     @Builder.Default
     private Packing type = Packing.GRAMS;
