@@ -5,33 +5,27 @@ import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.entity.Item;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemExceededException;
-import com.barretoareias.itemStock.exceptions.ItemNotFound;
+import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
 import com.barretoareias.itemStock.mappers.ItemMapper;
 import com.barretoareias.itemStock.repository.ItemRepository;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -82,7 +76,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    void whenValidItemNameIsGivenThenReturnAItem() throws ItemNotFound {
+    void whenValidItemNameIsGivenThenReturnAItem() throws ItemNotFoundException {
         // given
         ItemDTO expectedFoundItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
         Item expectedFoundItem = itemMapper.toModel(expectedFoundItemDTO);
@@ -105,7 +99,7 @@ public class ItemServiceTest {
         when(itemRepository.findByName(expectedFoundItemDTO.getName())).thenReturn(Optional.empty());
 
         // then
-        assertThrows(ItemNotFound.class, () -> itemService.findByName(expectedFoundItemDTO.getName()));
+        assertThrows(ItemNotFoundException.class, () -> itemService.findByName(expectedFoundItemDTO.getName()));
     }
 
     @Test
@@ -136,7 +130,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    void whenExclusionIsCalledWithValidIdThenAItemShouldBeDeleted() throws ItemNotFound{
+    void whenExclusionIsCalledWithValidIdThenAItemShouldBeDeleted() throws ItemNotFoundException {
         // given
         ItemDTO expectedDeletedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
         Item expectedDeletedItem = itemMapper.toModel(expectedDeletedItemDTO);
@@ -153,7 +147,7 @@ public class ItemServiceTest {
     }
 
     @Test
-    void whenIncrementIsCalledThenIncrementItemStock() throws ItemNotFound, ItemExceededException {
+    void whenIncrementIsCalledThenIncrementItemStock() throws ItemNotFoundException, ItemExceededException {
         //given
         ItemDTO expectedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
         Item expectedItem = itemMapper.toModel(expectedItemDTO);
@@ -200,58 +194,6 @@ public class ItemServiceTest {
 
         when(itemRepository.findById(INVALID_BEER_ID)).thenReturn(Optional.empty());
 
-        assertThrows(ItemNotFound.class, () -> itemService.incrementQuantity(INVALID_BEER_ID, quantityToIncrement));
+        assertThrows(ItemNotFoundException.class, () -> itemService.incrementQuantity(INVALID_BEER_ID, quantityToIncrement));
     }
-//
-//    @Test
-//    void whenDecrementIsCalledThenDecrementItemStock() throws ItemNotFoundException, ItemStockExceededException {
-//        ItemDTO expectedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
-//        Item expectedItem = itemMapper.toModel(expectedItemDTO);
-//
-//        when(itemRepository.findById(expectedItemDTO.getId())).thenReturn(Optional.of(expectedItem));
-//        when(itemRepository.save(expectedItem)).thenReturn(expectedItem);
-//
-//        int quantityToDecrement = 5;
-//        int expectedQuantityAfterDecrement = expectedItemDTO.getQuantity() - quantityToDecrement;
-//        ItemDTO incrementedItemDTO = itemService.decrement(expectedItemDTO.getId(), quantityToDecrement);
-//
-//        assertThat(expectedQuantityAfterDecrement, equalTo(incrementedItemDTO.getQuantity()));
-//        assertThat(expectedQuantityAfterDecrement, greaterThan(0));
-//    }
-//
-//    @Test
-//    void whenDecrementIsCalledToEmptyStockThenEmptyItemStock() throws ItemNotFoundException, ItemStockExceededException {
-//        ItemDTO expectedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
-//        Item expectedItem = itemMapper.toModel(expectedItemDTO);
-//
-//        when(itemRepository.findById(expectedItemDTO.getId())).thenReturn(Optional.of(expectedItem));
-//        when(itemRepository.save(expectedItem)).thenReturn(expectedItem);
-//
-//        int quantityToDecrement = 10;
-//        int expectedQuantityAfterDecrement = expectedItemDTO.getQuantity() - quantityToDecrement;
-//        ItemDTO incrementedItemDTO = itemService.decrement(expectedItemDTO.getId(), quantityToDecrement);
-//
-//        assertThat(expectedQuantityAfterDecrement, equalTo(0));
-//        assertThat(expectedQuantityAfterDecrement, equalTo(incrementedItemDTO.getQuantity()));
-//    }
-//
-//    @Test
-//    void whenDecrementIsLowerThanZeroThenThrowException() {
-//        ItemDTO expectedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
-//        Item expectedItem = itemMapper.toModel(expectedItemDTO);
-//
-//        when(itemRepository.findById(expectedItemDTO.getId())).thenReturn(Optional.of(expectedItem));
-//
-//        int quantityToDecrement = 80;
-//        assertThrows(ItemStockExceededException.class, () -> itemService.decrement(expectedItemDTO.getId(), quantityToDecrement));
-//    }
-//
-//    @Test
-//    void whenDecrementIsCalledWithInvalidIdThenThrowException() {
-//        int quantityToDecrement = 10;
-//
-//        when(itemRepository.findById(INVALID_BEER_ID)).thenReturn(Optional.empty());
-//
-//        assertThrows(ItemNotFoundException.class, () -> itemService.decrement(INVALID_BEER_ID, quantityToDecrement));
-//    }
 }

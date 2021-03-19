@@ -1,0 +1,64 @@
+First Version
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   HELP.md
+#	new file:   itemStock.iml
+#	new file:   mvnw
+#	new file:   mvnw.cmd
+#	new file:   pom.xml
+#	new file:   src/main/java/com/barretoareias/itemStock/ItemStockApplication.java
+#	new file:   src/main/java/com/barretoareias/itemStock/config/SwaggerConfig.java
+#	new file:   src/main/java/com/barretoareias/itemStock/controller/ItemController.java
+#	new file:   src/main/java/com/barretoareias/itemStock/controller/ItemControllerDocs.java
+#	new file:   src/main/java/com/barretoareias/itemStock/dto/ItemDTO.java
+#	new file:   src/main/java/com/barretoareias/itemStock/dto/QuantityDTO.java
+#	new file:   src/main/java/com/barretoareias/itemStock/entity/Item.java
+#	new file:   src/main/java/com/barretoareias/itemStock/enums/Packing.java
+#	new file:   src/main/java/com/barretoareias/itemStock/exceptions/ItemAlreadyRegisteredException.java
+#	new file:   src/main/java/com/barretoareias/itemStock/exceptions/ItemExceededException.java
+#	new file:   src/main/java/com/barretoareias/itemStock/exceptions/ItemNotFound.java
+#	new file:   src/main/java/com/barretoareias/itemStock/mappers/ItemMapper.java
+#	new file:   src/main/java/com/barretoareias/itemStock/repository/ItemRepository.java
+#	new file:   src/main/java/com/barretoareias/itemStock/service/ItemService.java
+#	new file:   src/main/resources/application.properties
+#	new file:   src/test/java/com/barretoareias/itemStock/ItemStockApplicationTests.java
+#	new file:   src/test/java/com/barretoareias/itemStock/builder/ItemDTOBuilder.java
+#	new file:   src/test/java/com/barretoareias/itemStock/controller/ItemControllerTest.java
+#	new file:   src/test/java/com/barretoareias/itemStock/service/ItemServiceTest.java
+#	new file:   src/test/java/com/barretoareias/itemStock/utils/JsonConvertionUtils.java
+#	new file:   target/classes/application.properties
+#	new file:   target/classes/com/barretoareias/itemStock/ItemStockApplication.class
+#	new file:   target/classes/com/barretoareias/itemStock/config/SwaggerConfig.class
+#	new file:   target/classes/com/barretoareias/itemStock/controller/ItemController.class
+#	new file:   target/classes/com/barretoareias/itemStock/controller/ItemControllerDocs.class
+#	new file:   target/classes/com/barretoareias/itemStock/dto/ItemDTO$ItemDTOBuilder.class
+#	new file:   target/classes/com/barretoareias/itemStock/dto/ItemDTO.class
+#	new file:   target/classes/com/barretoareias/itemStock/dto/QuantityDTO$QuantityDTOBuilder.class
+#	new file:   target/classes/com/barretoareias/itemStock/dto/QuantityDTO.class
+#	new file:   target/classes/com/barretoareias/itemStock/entity/Item.class
+#	new file:   target/classes/com/barretoareias/itemStock/enums/Packing.class
+#	new file:   target/classes/com/barretoareias/itemStock/exceptions/ItemAlreadyRegisteredException.class
+#	new file:   target/classes/com/barretoareias/itemStock/exceptions/ItemExceededException.class
+#	new file:   target/classes/com/barretoareias/itemStock/exceptions/ItemNotFound.class
+#	new file:   target/classes/com/barretoareias/itemStock/mappers/ItemMapper.class
+#	new file:   target/classes/com/barretoareias/itemStock/mappers/ItemMapperImpl.class
+#	new file:   target/classes/com/barretoareias/itemStock/repository/ItemRepository.class
+#	new file:   target/classes/com/barretoareias/itemStock/service/ItemService.class
+#	new file:   target/generated-sources/annotations/com/barretoareias/itemStock/mappers/ItemMapperImpl.java
+#	new file:   target/test-classes/com/barretoareias/itemStock/ItemStockApplicationTests.class
+#	new file:   target/test-classes/com/barretoareias/itemStock/builder/ItemDTOBuilder$ItemDTOBuilderBuilder.class
+#	new file:   target/test-classes/com/barretoareias/itemStock/builder/ItemDTOBuilder.class
+#	new file:   target/test-classes/com/barretoareias/itemStock/controller/ItemControllerTest.class
+#	new file:   target/test-classes/com/barretoareias/itemStock/service/ItemServiceTest.class
+#	new file:   target/test-classes/com/barretoareias/itemStock/utils/JsonConvertionUtils.class
+#
+# Untracked files:
+#	.gitignore
+#	.mvn/
+#

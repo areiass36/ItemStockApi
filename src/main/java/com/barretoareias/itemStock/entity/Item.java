@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -29,7 +30,15 @@ public class Item {
     @Column(nullable = false)
     private int quantity;
 
+    @Basic
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date addedDete;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Packing type;
+
+    @Column(nullable = false)
+    private Long personId;
 }

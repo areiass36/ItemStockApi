@@ -2,7 +2,7 @@ package com.barretoareias.itemStock.controller;
 
 import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
-import com.barretoareias.itemStock.exceptions.ItemNotFound;
+import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -26,7 +26,7 @@ public interface ItemControllerDocs {
             @ApiResponse(code = 200, message = "Success item found in the system"),
             @ApiResponse(code = 404, message = "Item with given name not found.")
     })
-    ItemDTO findByName(@PathVariable String name) throws ItemNotFound;
+    ItemDTO findByName(@PathVariable String name) throws ItemNotFoundException;
 
     @ApiOperation(value = "Returns a list of all items registered in the system")
     @ApiResponses(value = {
@@ -39,5 +39,5 @@ public interface ItemControllerDocs {
             @ApiResponse(code = 204, message = "Success item deleted in the system"),
             @ApiResponse(code = 404, message = "Item with given id not found.")
     })
-    void deleteById(@PathVariable Long id) throws ItemNotFound;
+    void deleteById(@PathVariable Long id) throws ItemNotFoundException;
 }

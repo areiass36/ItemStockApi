@@ -2,7 +2,7 @@ package com.barretoareias.itemStock.controller;
 import com.barretoareias.itemStock.builder.ItemDTOBuilder;
 import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.dto.QuantityDTO;
-import com.barretoareias.itemStock.exceptions.ItemNotFound;
+import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
 import com.barretoareias.itemStock.service.ItemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -108,7 +108,7 @@ public class ItemControllerTest {
         ItemDTO itemDTO = ItemDTOBuilder.builder().build().toItemDTO();
 
         //when
-        when(itemService.findByName(itemDTO.getName())).thenThrow(ItemNotFound.class);
+        when(itemService.findByName(itemDTO.getName())).thenThrow(ItemNotFoundException.class);
 
         // then
         mockMvc.perform(MockMvcRequestBuilders.get(ITEM_API_URL_PATH + "/" + itemDTO.getName())
@@ -120,12 +120,11 @@ public class ItemControllerTest {
     void whenGETListWithItemsIsCalledThenOkStatusIsReturned() throws Exception {
         // given
         ItemDTO itemDTO = ItemDTOBuilder.builder().build().toItemDTO();
-
         //when
         when(itemService.listAll()).thenReturn(Collections.singletonList(itemDTO));
 
         // then
-        mockMvc.perform(MockMvcRequestBuilders.get(ITEM_API_URL_PATH)
+        mockMvc.perform(get(ITEM_API_URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name", is(itemDTO.getName())))
@@ -164,7 +163,7 @@ public class ItemControllerTest {
     @Test
     void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
         //when
-        doThrow(ItemNotFound.class).when(itemService).deleteById(INVALID_ITEM_ID);
+        doThrow(ItemNotFoundException.class).when(itemService).deleteById(INVALID_ITEM_ID);
 
         // then
         mockMvc.perform(MockMvcRequestBuilders.delete(ITEM_API_URL_PATH + "/" + INVALID_ITEM_ID)

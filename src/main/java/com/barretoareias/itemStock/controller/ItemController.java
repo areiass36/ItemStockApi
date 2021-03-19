@@ -4,13 +4,11 @@ import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.dto.QuantityDTO;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemExceededException;
-import com.barretoareias.itemStock.exceptions.ItemNotFound;
+import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
 import com.barretoareias.itemStock.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,7 +34,7 @@ public class ItemController implements ItemControllerDocs{
     }
 
     @GetMapping("/{name}")
-    public ItemDTO findByName(@PathVariable String name) throws ItemNotFound {
+    public ItemDTO findByName(@PathVariable String name) throws ItemNotFoundException {
         return itemService.findByName(name);
     }
 
@@ -47,12 +45,12 @@ public class ItemController implements ItemControllerDocs{
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(Long id) throws ItemNotFound {
+    public void deleteById(Long id) throws ItemNotFoundException {
         itemService.deleteById(id);
     }
 
     @PatchMapping("/{id}/increment")
-    public ItemDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws ItemNotFound, ItemExceededException{
+    public ItemDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws ItemNotFoundException, ItemExceededException{
         return itemService.incrementQuantity(id,quantityDTO.getQuantity());
     }
 

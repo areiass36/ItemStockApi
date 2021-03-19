@@ -4,7 +4,7 @@ import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.entity.Item;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemExceededException;
-import com.barretoareias.itemStock.exceptions.ItemNotFound;
+import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
 import com.barretoareias.itemStock.mappers.ItemMapper;
 import com.barretoareias.itemStock.repository.ItemRepository;
 import lombok.AllArgsConstructor;
@@ -30,9 +30,9 @@ public class ItemService {
         return itemMapper.toDTO(savedItem);
     }
 
-    public ItemDTO findByName(String name) throws ItemNotFound {
+    public ItemDTO findByName(String name) throws ItemNotFoundException {
         Item foundItem = itemRepository.findByName(name)
-                .orElseThrow(() -> new ItemNotFound(name));
+                .orElseThrow(() -> new ItemNotFoundException(name));
         return itemMapper.toDTO(foundItem);
     }
 
@@ -42,14 +42,14 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Long id) throws ItemNotFound {
+    public void deleteById(Long id) throws ItemNotFoundException {
         verifyIfExists(id);
         itemRepository.deleteById(id);
     }
 
-    private Item verifyIfExists(Long id) throws ItemNotFound {
+    private Item verifyIfExists(Long id) throws ItemNotFoundException {
         return itemRepository.findById(id)
-                .orElseThrow(() -> new ItemNotFound(id));
+                .orElseThrow(() -> new ItemNotFoundException(id));
     }
 
     private void verifyIfIsAlreadyRegistered(String name) throws ItemAlreadyRegisteredException{
@@ -59,7 +59,7 @@ public class ItemService {
         }
     }
 
-    public ItemDTO incrementQuantity(Long id, int quantityToIncrement) throws ItemNotFound, ItemExceededException {
+    public ItemDTO incrementQuantity(Long id, int quantityToIncrement) throws ItemNotFoundException, ItemExceededException {
         Item itemToIncrement = verifyIfExists(id);
         int quantityAfterIncrement = quantityToIncrement + itemToIncrement.getQuantity();
         if(quantityAfterIncrement <= itemToIncrement.getMax()) {

@@ -39,4 +39,7 @@ public class ItemDTO {
     @Enumerated(EnumType.STRING)
     @NotNull
     private Packing type;
+
+    @NotNull
+    private Long personId;
 }
