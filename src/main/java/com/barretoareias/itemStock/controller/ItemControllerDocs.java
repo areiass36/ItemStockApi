@@ -3,6 +3,7 @@ package com.barretoareias.itemStock.controller;
 import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
+import com.barretoareias.itemStock.exceptions.PersonNotFoundException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -19,7 +20,7 @@ public interface ItemControllerDocs {
             @ApiResponse(code = 201, message = "Success item creation"),
             @ApiResponse(code = 400, message = "Missing required fields or wrong field range value.")
     })
-    ItemDTO createItem (ItemDTO itemDTO) throws ItemAlreadyRegisteredException;
+    ItemDTO createItem (ItemDTO itemDTO) throws ItemAlreadyRegisteredException, PersonNotFoundException;
 
     @ApiOperation(value = "Returns item found by a given name")
     @ApiResponses(value = {

@@ -4,6 +4,9 @@ import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.enums.Packing;
 import lombok.Builder;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 @Builder
 public class ItemDTOBuilder {
 
@@ -23,7 +26,13 @@ public class ItemDTOBuilder {
     private int quantity = 8;
 
     @Builder.Default
+    private Date addedDate = Date.valueOf("2021-01-01");
+
+    @Builder.Default
     private Packing type = Packing.GRAMS;
+
+    @Builder.Default
+    private Long personId = 1l;
 
     public ItemDTO toItemDTO() {
         return new ItemDTO(id,
@@ -31,6 +40,8 @@ public class ItemDTOBuilder {
                 brand,
                 max,
                 quantity,
-                type);
+                addedDate,
+                type,
+                personId);
     }
 }

@@ -2,16 +2,20 @@ package com.barretoareias.itemStock.service;
 
 import com.barretoareias.itemStock.dto.ItemDTO;
 import com.barretoareias.itemStock.entity.Item;
+import com.barretoareias.itemStock.entity.Person;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemExceededException;
 import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
+import com.barretoareias.itemStock.exceptions.PersonNotFoundException;
 import com.barretoareias.itemStock.mappers.ItemMapper;
 import com.barretoareias.itemStock.repository.ItemRepository;
+import com.barretoareias.itemStock.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,10 +25,12 @@ import java.util.stream.Collectors;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final PersonRepository personRepository;
     private final ItemMapper itemMapper = ItemMapper.INSTANCE;
 
-    public ItemDTO createItem(ItemDTO itemDTO) throws ItemAlreadyRegisteredException {
+    public ItemDTO createItem(ItemDTO itemDTO) throws ItemAlreadyRegisteredException, PersonNotFoundException {
         verifyIfIsAlreadyRegistered(itemDTO.getName());
+        verifyIfPersonExists(itemDTO.getPersonId());
         Item item = itemMapper.toModel(itemDTO);
         Item savedItem = itemRepository.save(item);
         return itemMapper.toDTO(savedItem);
@@ -57,6 +63,10 @@ public class ItemService {
         if(optSavedItem.isPresent()){
             throw new ItemAlreadyRegisteredException(name);
         }
+    }
+
+    private Person verifyIfPersonExists(Long id) throws PersonNotFoundException{
+        return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
     }
 
     public ItemDTO incrementQuantity(Long id, int quantityToIncrement) throws ItemNotFoundException, ItemExceededException {

@@ -1,13 +1,12 @@
 package com.barretoareias.itemStock.mappers;
 
 import com.barretoareias.itemStock.dto.ItemDTO;
-import com.barretoareias.itemStock.dto.ItemDTO.ItemDTOBuilder;
 import com.barretoareias.itemStock.entity.Item;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-03-18T06:58:47-0300",
+    date = "2021-03-19T08:48:09-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 15.0.2 (Oracle Corporation)"
 )
 public class ItemMapperImpl implements ItemMapper {
@@ -29,7 +28,9 @@ public class ItemMapperImpl implements ItemMapper {
         if ( itemDTO.getQuantity() != null ) {
             item.setQuantity( itemDTO.getQuantity() );
         }
+        item.setAddedDate( itemDTO.getAddedDate() );
         item.setType( itemDTO.getType() );
+        item.setPersonId( itemDTO.getPersonId() );
 
         return item;
     }
@@ -40,15 +41,17 @@ public class ItemMapperImpl implements ItemMapper {
             return null;
         }
 
-        ItemDTOBuilder itemDTO = ItemDTO.builder();
+        ItemDTO itemDTO = new ItemDTO();
 
-        itemDTO.id( item.getId() );
-        itemDTO.name( item.getName() );
-        itemDTO.brand( item.getBrand() );
-        itemDTO.max( item.getMax() );
-        itemDTO.quantity( item.getQuantity() );
-        itemDTO.type( item.getType() );
+        itemDTO.setId( item.getId() );
+        itemDTO.setName( item.getName() );
+        itemDTO.setBrand( item.getBrand() );
+        itemDTO.setMax( item.getMax() );
+        itemDTO.setQuantity( item.getQuantity() );
+        itemDTO.setAddedDate( item.getAddedDate() );
+        itemDTO.setType( item.getType() );
+        itemDTO.setPersonId( item.getPersonId() );
 
-        return itemDTO.build();
+        return itemDTO;
     }
 }

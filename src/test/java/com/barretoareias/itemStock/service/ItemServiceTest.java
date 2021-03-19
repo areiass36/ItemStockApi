@@ -6,6 +6,7 @@ import com.barretoareias.itemStock.entity.Item;
 import com.barretoareias.itemStock.exceptions.ItemAlreadyRegisteredException;
 import com.barretoareias.itemStock.exceptions.ItemExceededException;
 import com.barretoareias.itemStock.exceptions.ItemNotFoundException;
+import com.barretoareias.itemStock.exceptions.PersonNotFoundException;
 import com.barretoareias.itemStock.mappers.ItemMapper;
 import com.barretoareias.itemStock.repository.ItemRepository;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ public class ItemServiceTest {
     private ItemService itemService;
 
     @Test
-    void whenItemInformedThenItShouldBeCreated() throws ItemAlreadyRegisteredException {
+    void whenItemInformedThenItShouldBeCreated() throws ItemAlreadyRegisteredException, PersonNotFoundException {
         // given
         ItemDTO expectedItemDTO = ItemDTOBuilder.builder().build().toItemDTO();
         Item expectedSavedItem = itemMapper.toModel(expectedItemDTO);
