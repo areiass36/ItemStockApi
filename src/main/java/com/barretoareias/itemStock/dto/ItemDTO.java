@@ -1,5 +1,6 @@
 package com.barretoareias.itemStock.dto;
 
+import com.barretoareias.itemStock.entity.Person;
 import com.barretoareias.itemStock.enums.Packing;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,5 +47,5 @@ public class ItemDTO {
     private Packing type;
 
     @NotNull
-    private Long personId;
+    private Person personId;
 }

@@ -30,7 +30,7 @@ public class ItemService {
 
     public ItemDTO createItem(ItemDTO itemDTO) throws ItemAlreadyRegisteredException, PersonNotFoundException {
         verifyIfIsAlreadyRegistered(itemDTO.getName());
-        verifyIfPersonExists(itemDTO.getPersonId());
+        verifyIfPersonExists(itemDTO.getPersonId().getId());
         Item item = itemMapper.toModel(itemDTO);
         Item savedItem = itemRepository.save(item);
         return itemMapper.toDTO(savedItem);

@@ -20,6 +20,4 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "item")
-    private List<Item> items;
 }

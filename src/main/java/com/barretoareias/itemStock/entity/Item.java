@@ -38,6 +38,7 @@ public class Item {
     @Column(nullable = false)
     private Packing type;
     
-    @OneToOne(mappedBy = "person")
-    private Long personId;
+    @OneToOne
+    @JoinColumn(name = "person_id")
+    private Person personId;
 }
